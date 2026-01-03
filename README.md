@@ -1,4 +1,4 @@
-<h1 align="center">Hi 👋, I'm Mahmoudmourad1712</h1>
+<h1 align="center">Hi 👋, I'm Mahmoudmourad</h1>
 <h3 align="center">Full Stack Developer | React | React Native & Node.js</h3>
 
 - 💬 Ask me about **Full Stack Developer with 3+ years of experience building scalable web and mobile applications for international clients. Specialized in React.js, React Native, Node.js, and modern database technologies including Supabase and PostgreSQL. Proven ability to deliver quality solutions remotely while collaborating with cross-functional teams across Germany, Saudi Arabia, and Egypt.**
