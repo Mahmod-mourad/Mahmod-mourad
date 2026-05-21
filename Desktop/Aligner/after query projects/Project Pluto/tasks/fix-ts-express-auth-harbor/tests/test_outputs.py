@@ -276,3 +276,50 @@ def test_sessions_endpoint_requires_auth(running_server):
     """GET /api/sessions without an Authorization header must return HTTP 401."""
     resp = requests.get(f"{BASE_URL}/api/sessions", timeout=5)
     assert resp.status_code == 401, f"Expected 401, got {resp.status_code}: {resp.text}"
+
+
+def test_sessions_endpoint_tracks_and_removes_sessions(running_server):
+    """GET /api/sessions must list active sessions; logout must remove the session from the list."""
+    login = requests.post(
+        f"{BASE_URL}/auth/login",
+        json={"username": "admin", "password": "password123"},
+        timeout=5,
+    )
+    assert login.status_code == 200
+    access_token = login.json()["token"]
+    refresh_token = login.json()["refreshToken"]
+
+    sessions_resp = requests.get(
+        f"{BASE_URL}/api/sessions",
+        headers={"Authorization": f"Bearer {access_token}"},
+        timeout=5,
+    )
+    assert sessions_resp.status_code == 200, (
+        f"Expected 200 from /api/sessions, got {sessions_resp.status_code}: {sessions_resp.text}"
+    )
+    data = sessions_resp.json()
+    assert "sessions" in data, f"Response missing 'sessions' field: {data}"
+    assert isinstance(data["sessions"], list), f"'sessions' must be a list: {data}"
+    count_before = len(data["sessions"])
+    assert count_before >= 1, f"Expected at least 1 active session after login: {data['sessions']}"
+    for session in data["sessions"]:
+        assert "sessionId" in session, f"Each session must have 'sessionId': {session}"
+        assert "createdAt" in session, f"Each session must have 'createdAt': {session}"
+
+    logout = requests.post(
+        f"{BASE_URL}/auth/logout",
+        json={"refreshToken": refresh_token},
+        timeout=5,
+    )
+    assert logout.status_code == 200, f"Logout failed: {logout.text}"
+
+    sessions_after = requests.get(
+        f"{BASE_URL}/api/sessions",
+        headers={"Authorization": f"Bearer {access_token}"},
+        timeout=5,
+    )
+    assert sessions_after.status_code == 200
+    count_after = len(sessions_after.json().get("sessions", []))
+    assert count_after < count_before, (
+        f"Session count should decrease after logout: before={count_before}, after={count_after}"
+    )

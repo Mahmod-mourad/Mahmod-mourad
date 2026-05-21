@@ -38,9 +38,10 @@ You must extend the service with the following endpoints and behaviours:
    Returns HTTP 401 without a valid Authorization header.
    Returns HTTP 200 with the list of active sessions for the authenticated user:
      {"sessions": [{"sessionId": "<id>", "createdAt": "<ISO-8601-timestamp>"}, ...]}
+   A session appears in the list after a successful login and is removed after logout.
 
 The source code lives in /app/src, the TypeScript config is /app/tsconfig.json, and environment variables are in /app/.env. Node modules are already installed in /app/node_modules — no internet needed.
 
-A stub file at /app/src/services/tokenStore.ts already defines the data structures and the four function signatures you need to implement (issueRefreshToken, rotateRefreshToken, consumeRefreshToken, getUserSessions). Read the JSDoc comments in that file — they describe the exact behaviour expected of each function, including how replay detection and cascade invalidation should work.
+A stub file at /app/src/services/tokenStore.ts already defines the in-memory data structures and the four function signatures (issueRefreshToken, rotateRefreshToken, consumeRefreshToken, getUserSessions) — implement them to power the endpoints above.
 
 Implement the required changes so that `npm run build` succeeds and all endpoints behave as described above.
