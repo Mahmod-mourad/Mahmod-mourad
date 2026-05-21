@@ -39,6 +39,9 @@ You must extend the service with the following endpoints and behaviours:
    Returns HTTP 200 with the list of active sessions for the authenticated user:
      {"sessions": [{"sessionId": "<id>", "createdAt": "<ISO-8601-timestamp>"}, ...]}
    A session appears in the list after a successful login and is removed after logout.
+   Design note: a "session" and a "token family" are the same concept — each login creates
+   one family/session. The sessionId is the familyId created at login; getUserSessions should
+   return the active (non-compromised, non-logged-out) families for the authenticated user.
 
 The source code lives in /app/src, the TypeScript config is /app/tsconfig.json, and environment variables are in /app/.env. Node modules are already installed in /app/node_modules — no internet needed.
 
