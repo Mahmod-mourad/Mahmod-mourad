@@ -38,8 +38,6 @@ You must extend the service with the following endpoints and behaviours:
    Returns HTTP 401 without a valid Authorization header.
    Returns HTTP 200 with the list of active sessions for the authenticated user:
      {"sessions": [{"sessionId": "<id>", "createdAt": "<ISO-8601-timestamp>"}, ...]}
-   A session appears in the list after a successful login and is removed after logout or
-   after a replay attack invalidates it.
 
 The source code lives in /app/src, the TypeScript config is /app/tsconfig.json, and environment variables are in /app/.env. Node modules are already installed in /app/node_modules — no internet needed.
 
