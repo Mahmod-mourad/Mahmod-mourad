@@ -1,0 +1,99 @@
+// NexaHire data model — the single source of truth (architecture.md §6, system-design.md §5).
+// Models are added per sprint: User + Application land in Sprints 0–1; Company/Job/
+// CvVersion/FollowUp/etc. arrive with the sprints that introduce them.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ApplicationStatus {
+  applied
+  screening
+  interview
+  offer
+  rejected
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  applications Application[]
+  cvVersions   CvVersion[]
+
+  @@map("users")
+}
+
+model CvVersion {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  applications Application[]
+
+  @@index([userId])
+  @@map("cv_versions")
+}
+
+model Application {
+  id        String            @id @default(uuid()) @db.Uuid
+  userId    String            @db.Uuid
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company   String
+  role      String
+  location  String?
+  url       String?
+  source    String?
+  notes     String?
+  status    ApplicationStatus @default(applied)
+  atsScore  Int?
+  cvVersionId String?         @db.Uuid
+  cvVersion   CvVersion?      @relation(fields: [cvVersionId], references: [id], onDelete: SetNull)
+  appliedAt DateTime          @default(now())
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@index([userId, status])
+  @@index([userId, createdAt])
+  @@map("applications")
+}
+
+model Company {
+  id   String @id @default(uuid()) @db.Uuid
+  name String @unique
+  jobs Job[]
+  
+  @@map("companies")
+}
+
+model Job {
+  id          String   @id @default(uuid()) @db.Uuid
+  companyId   String   @db.Uuid
+  company     Company  @relation(fields: [companyId], references: [id])
+  source      String
+  externalId  String
+  dedupeHash  String   @unique
+  title       String
+  location    String?
+  remote      Boolean  @default(false)
+  applyUrl    String
+  postedAt    DateTime
+  visaTags    String[]
+  createdAt   DateTime @default(now())
+  
+  @@index([postedAt])
+  @@index([remote])
+  @@map("jobs")
+}
