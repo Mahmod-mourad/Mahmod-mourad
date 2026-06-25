@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useCvVersions } from './hooks/useCvVersions';
-import { CreateCvVersionDto } from '@nexahire/types';
+import type { CreateCvVersionDto } from '@nexahire/types';
 
 export function CvVersionsPage() {
   const { list, create, delete: remove } = useCvVersions();

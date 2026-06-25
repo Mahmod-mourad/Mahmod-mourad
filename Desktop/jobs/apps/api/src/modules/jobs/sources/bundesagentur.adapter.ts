@@ -1,5 +1,6 @@
 import { JobSource } from './job-source.interface';
-import { AppError, err, JobQuery, NormalizedJob, ok, RawJob, Result } from '@nexahire/types';
+import { JobQuery, NormalizedJob, RawJob } from '@nexahire/types';
+import { AppError, err, ok, Result } from '../../../core/result';
 import { tagVisaEligibility } from '../utils/visa-eligibility';
 import crypto from 'crypto';
 

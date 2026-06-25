@@ -1,19 +1,19 @@
 import { describe, expect, it } from 'vitest';
-import { createApplicationSchema, updateApplicationSchema } from './application';
+import { CreateApplicationSchema, UpdateApplicationStatusSchema } from './application';
 
-describe('createApplicationSchema', () => {
+describe('CreateApplicationSchema', () => {
   it('defaults status to "applied" and trims input', () => {
-    const parsed = createApplicationSchema.parse({ company: '  Acme  ', role: 'Backend Eng' });
+    const parsed = CreateApplicationSchema.parse({ company: '  Acme  ', role: 'Backend Eng' });
     expect(parsed.status).toBe('applied');
     expect(parsed.company).toBe('Acme');
   });
 
   it('rejects an empty company', () => {
-    expect(createApplicationSchema.safeParse({ company: '', role: 'x' }).success).toBe(false);
+    expect(CreateApplicationSchema.safeParse({ company: '', role: 'x' }).success).toBe(false);
   });
 
   it('rejects a malformed url', () => {
-    const result = createApplicationSchema.safeParse({
+    const result = CreateApplicationSchema.safeParse({
       company: 'Acme',
       role: 'x',
       url: 'not-a-url',
@@ -22,9 +22,9 @@ describe('createApplicationSchema', () => {
   });
 });
 
-describe('updateApplicationSchema', () => {
+describe('UpdateApplicationStatusSchema', () => {
   it('allows a status-only move (drag across the board)', () => {
-    const result = updateApplicationSchema.safeParse({ status: 'interview' });
+    const result = UpdateApplicationStatusSchema.safeParse({ status: 'interview' });
     expect(result.success).toBe(true);
   });
 });

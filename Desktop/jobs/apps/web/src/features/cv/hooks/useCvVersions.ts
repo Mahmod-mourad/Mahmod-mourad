@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../../../lib/api';
-import { CreateCvVersionDto, UpdateCvVersionDto } from '@nexahire/types';
+import type { CreateCvVersionDto, UpdateCvVersionDto } from '@nexahire/types';
 
 export function useCvVersions() {
   const queryClient = useQueryClient();

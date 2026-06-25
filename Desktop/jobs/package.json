@@ -1,0 +1,31 @@
+{
+  "name": "nexahire",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NexaHire — an AI Job-Application Copilot (Turborepo monorepo).",
+  "packageManager": "pnpm@11.8.0",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "scripts": {
+    "dev": "turbo run build --filter=@nexahire/config --filter=@nexahire/types && turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "db:generate": "pnpm --filter @nexahire/api db:generate",
+    "db:migrate": "pnpm --filter @nexahire/api db:migrate",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.19.0"
+  }
+}

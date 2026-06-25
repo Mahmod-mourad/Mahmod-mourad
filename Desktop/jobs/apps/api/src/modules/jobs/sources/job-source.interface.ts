@@ -1,4 +1,5 @@
-import { AppError, JobQuery, NormalizedJob, RawJob, Result } from '@nexahire/types';
+import { JobQuery, NormalizedJob, RawJob } from '@nexahire/types';
+import { AppError, Result } from '../../../core/result';
 
 export interface JobSource {
   readonly id: string;

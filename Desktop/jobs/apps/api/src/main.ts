@@ -1,17 +1,22 @@
 import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
+import type { ServerEnv } from '@nexahire/config';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
+
+  // All config comes from the validated env (never process.env directly).
+  const config = app.get<ConfigService<ServerEnv, true>>(ConfigService);
+
   app.use(helmet());
   app.use(cookieParser());
-  
+
   app.enableCors({
-    origin: process.env.WEB_ORIGIN || 'http://localhost:5173',
+    origin: config.get('WEB_ORIGIN', { infer: true }),
     credentials: true,
   });
 
@@ -22,8 +27,8 @@ async function bootstrap() {
     }),
   );
 
-  const port = process.env.API_PORT || 3001;
+  const port = config.get('API_PORT', { infer: true });
   await app.listen(port);
-  console.log(`API running on port ${port}`);
+  Logger.log(`API running on port ${port}`, 'Bootstrap');
 }
 bootstrap();

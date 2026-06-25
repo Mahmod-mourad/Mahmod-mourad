@@ -1,4 +1,6 @@
 import { Controller, Post, Body, Res, Get, UseGuards } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import type { ServerEnv } from '@nexahire/config';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { Response } from 'express';
@@ -8,7 +10,10 @@ import { CurrentUser } from './decorators/current-user.decorator';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly service: AuthService) {}
+  constructor(
+    private readonly service: AuthService,
+    private readonly config: ConfigService<ServerEnv, true>,
+  ) {}
 
   @Post('register')
   async register(@Body() dto: LoginDto) {
@@ -21,7 +26,7 @@ export class AuthController {
     const result = await this.service.login(dto);
     const data = unwrapOrThrow(result);
 
-    const isSecure = process.env.COOKIE_SECURE === 'true';
+    const isSecure = this.config.get('COOKIE_SECURE', { infer: true });
 
     res.cookie('token', data.token, {
       httpOnly: true,

@@ -3,7 +3,7 @@ import type { AppErrorKind } from '@nexahire/types';
 /**
  * The one error type that flows through the service layer. Repositories catch
  * external/Prisma exceptions and turn them into an `AppError`; controllers map
- * `kind` to an HTTP status through a single shared mapper (see `http.ts`).
+ * `kind` to an HTTP status through a single shared mapper (see `http-mapper.ts`).
  */
 export class AppError {
   constructor(

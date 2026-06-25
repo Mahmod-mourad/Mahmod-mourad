@@ -1,6 +1,6 @@
 import { useApplications } from '../hooks/useApplications';
 import { KanbanColumn } from './KanbanColumn';
-import { ApplicationStatus, ApplicationResponseDto } from '@nexahire/types';
+import type { ApplicationStatus, ApplicationResponseDto } from '@nexahire/types';
 
 const STAGES: { id: ApplicationStatus; title: string }[] = [
   { id: 'applied', title: 'Applied' },

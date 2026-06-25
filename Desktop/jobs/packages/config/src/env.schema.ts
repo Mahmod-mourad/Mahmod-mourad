@@ -27,8 +27,14 @@ export const serverEnvSchema = z.object({
     .default('false')
     .transform((value) => value === 'true'),
 
-  // Server-side ONLY. Optional so the stack boots before AI is wired (Sprint 2).
+  // Server-side ONLY. Optional so the stack boots before AI is wired  // Anthropic
   ANTHROPIC_API_KEY: z.string().min(1).optional(),
+
+  // Push Notifications (VAPID)
+  VAPID_PUBLIC_KEY: z.string().optional(),
+  VAPID_PRIVATE_KEY: z.string().optional(),
+  VAPID_SUBJECT: z.string().url().default('mailto:admin@nexahire.local'),
+
   ANTHROPIC_MODEL: z.string().default('claude-opus-4-8'),
 });
 

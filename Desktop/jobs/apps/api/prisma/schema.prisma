@@ -23,11 +23,19 @@ model User {
   id           String   @id @default(uuid()) @db.Uuid
   email        String   @unique
   passwordHash String
+  portfolioSlug String? @unique
+  isPortfolioPublic Boolean @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  applications Application[]
-  cvVersions   CvVersion[]
+  applications    Application[]
+  cvVersions      CvVersion[]
+  telegramChat    TelegramChat?
+  pushSubs        PushSubscription[]
+  dailyFocuses    DailyFocus[]
+  outreachMessages OutreachMessage[]
+  snippets        Snippet[]
+  starStories     StarStory[]
 
   @@map("users")
 }
@@ -61,6 +69,9 @@ model Application {
   atsScore  Int?
   cvVersionId String?         @db.Uuid
   cvVersion   CvVersion?      @relation(fields: [cvVersionId], references: [id], onDelete: SetNull)
+  followUps    FollowUp[]
+  outreachMsgs OutreachMessage[]
+  interviewLogs InterviewLog[]
   appliedAt DateTime          @default(now())
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
@@ -96,4 +107,121 @@ model Job {
   @@index([postedAt])
   @@index([remote])
   @@map("jobs")
+}
+
+model TelegramChat {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @unique @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chatId    String   @unique // Telegram's chat ID
+  createdAt DateTime @default(now())
+
+  @@map("telegram_chats")
+}
+
+model PushSubscription {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("push_subscriptions")
+}
+
+model FollowUp {
+  id             String   @id @default(uuid()) @db.Uuid
+  applicationId  String   @db.Uuid
+  application    Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  scheduledDate  DateTime
+  status         String   @default("pending") // pending, drafted, sent, dismissed
+  draftedMessage String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([status, scheduledDate])
+  @@map("follow_ups")
+}
+
+model DailyFocus {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      DateTime @db.Date
+  tasks     String[]
+  streak    Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, date])
+  @@map("daily_focuses")
+}
+
+model OutreachMessage {
+  id            String   @id @default(uuid()) @db.Uuid
+  userId        String   @db.Uuid
+  applicationId String?  @db.Uuid
+  type          String   // 'email', 'linkedin'
+  content       String
+  status        String   @default("draft") // 'draft', 'sent'
+  
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  application   Application? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([userId])
+  @@index([applicationId])
+  @@map("outreach_messages")
+}
+
+model Snippet {
+  id          String   @id @default(uuid()) @db.Uuid
+  userId      String   @db.Uuid
+  name        String
+  content     String
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@map("snippets")
+}
+
+model StarStory {
+  id          String   @id @default(uuid()) @db.Uuid
+  userId      String   @db.Uuid
+  title       String
+  situation   String
+  task        String
+  action      String
+  result      String
+  skills      String[]
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@map("star_stories")
+}
+
+model InterviewLog {
+  id            String   @id @default(uuid()) @db.Uuid
+  applicationId String   @db.Uuid
+  date          DateTime
+  type          String   // e.g., 'HR', 'Technical', 'System Design', 'Behavioral'
+  notes         String?
+  debrief       String?
+  rating        Int?     // 1 to 5
+
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([applicationId])
+  @@map("interview_logs")
 }

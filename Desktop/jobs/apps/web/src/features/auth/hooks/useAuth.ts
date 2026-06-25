@@ -31,7 +31,7 @@ export function useAuth() {
 
   const registerMutation = useMutation({
     mutationFn: api.auth.register,
-    onSuccess: (data) => {
+    onSuccess: () => {
       // After register we typically require login, but assuming it logs in:
       // setUser(data.user);
     },

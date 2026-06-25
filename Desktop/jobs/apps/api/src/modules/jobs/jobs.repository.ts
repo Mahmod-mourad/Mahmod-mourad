@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../core/database/prisma.service';
-import { AppError, err, NormalizedJob, ok, Result } from '@nexahire/types';
+import { NormalizedJob } from '@nexahire/types';
+import { AppError, err, ok, Result } from '../../core/result';
 import { Job, Company } from '@prisma/client';
 
 @Injectable()
@@ -43,7 +44,7 @@ export class JobsRepository {
       }
       return ok(inserted);
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to upsert jobs'));
+      return err(new AppError('Unexpected', 'Failed to upsert jobs'));
     }
   }
 
@@ -65,7 +66,7 @@ export class JobsRepository {
       });
       return ok(jobs);
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to fetch jobs'));
+      return err(new AppError('Unexpected', 'Failed to fetch jobs'));
     }
   }
 }
