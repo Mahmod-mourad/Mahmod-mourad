@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // For the build, resolve @nexahire/* from the built packages in node_modules
+    // (not their src via tsconfig.json's paths). Otherwise tsc pulls package
+    // source into the program, raises the inferred rootDir to the repo root, and
+    // emits to dist/apps/api/src/main.js instead of dist/main.js (which Nest runs).
+    "rootDir": "./src",
+    "paths": {}
+  },
+  "exclude": ["node_modules", "dist", "test", "**/*.spec.ts"]
+}
