@@ -1,13 +1,22 @@
 import { useState } from 'react';
 import { KanbanBoard } from './components/KanbanBoard';
 import { StatsStrip } from './components/StatsStrip';
+import { DailyFocusWidget } from '../companion/components/DailyFocusWidget';
+import { PushSubscriptionButton } from '../companion/components/PushSubscriptionButton';
+import { OutreachGenerator } from '../outreach/components/OutreachGenerator';
+import { NegotiationSimulator } from '../negotiation/components/NegotiationSimulator';
+import { NetPayCalculator } from '../negotiation/components/NetPayCalculator';
+import { PrepDashboard } from '../prep/components/PrepDashboard';
+import { AnalyticsDashboard } from '../analytics/components/AnalyticsDashboard';
+import { PortfolioSettings } from '../portfolio/components/PortfolioSettings';
 import { useApplications } from './hooks/useApplications';
 import { AtsOptimizer } from '../ats/AtsOptimizer';
-import { CreateApplicationDto, ApplicationStatus } from '@nexahire/types';
+import type { CreateApplicationDto, ApplicationStatus } from '@nexahire/types';
 
 export function ApplicationsPage() {
   const { create } = useApplications();
   const [showForm, setShowForm] = useState(false);
+  const [activeMainTab, setActiveMainTab] = useState<'hunt' | 'prep' | 'analytics'>('hunt');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,30 +33,71 @@ export function ApplicationsPage() {
 
   return (
     <div style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-        <h1 style={{ margin: 0, fontSize: '28px', color: '#0f172a' }}>Application Tracker</h1>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#3b82f6',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-          }}
-        >
-          {showForm ? 'Close Form' : 'Add Application'}
-        </button>
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Applications</h1>
+          <p className="text-gray-500 mt-1">Manage your job hunt pipeline.</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <PushSubscriptionButton />
+          <button 
+            onClick={() => setShowForm(!showForm)}
+            className="bg-indigo-600 text-white px-5 py-2.5 rounded-lg font-medium shadow-sm hover:bg-indigo-700 hover:shadow transition-all focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            {showForm ? 'Close Form' : '+ New Application'}
+          </button>
+        </div>
       </div>
 
-      <AtsOptimizer />
+      <div className="flex border-b mb-6">
+        <button onClick={() => setActiveMainTab('hunt')} className={`px-4 py-2 font-medium transition ${activeMainTab === 'hunt' ? 'border-b-2 border-indigo-600 text-indigo-700' : 'text-gray-500 hover:bg-gray-50'}`}>Hunt & Applications</button>
+        <button onClick={() => setActiveMainTab('prep')} className={`px-4 py-2 font-medium transition ${activeMainTab === 'prep' ? 'border-b-2 border-indigo-600 text-indigo-700' : 'text-gray-500 hover:bg-gray-50'}`}>Interview Prep</button>
+        <button onClick={() => setActiveMainTab('analytics')} className={`px-4 py-2 font-medium transition ${activeMainTab === 'analytics' ? 'border-b-2 border-indigo-600 text-indigo-700' : 'text-gray-500 hover:bg-gray-50'}`}>Analytics & Portfolio</button>
+      </div>
+
+      {activeMainTab === 'hunt' && (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div className="md:col-span-3">
+              <StatsStrip />
+            </div>
+            <div className="md:col-span-1">
+              <DailyFocusWidget />
+            </div>
+          </div>
+
+          <AtsOptimizer />
+
+          <div className="mt-12 grid grid-cols-1 xl:grid-cols-2 gap-8">
+            <div>
+              <OutreachGenerator />
+              <NetPayCalculator />
+            </div>
+            <div>
+              <NegotiationSimulator />
+            </div>
+          </div>
+
+          <KanbanBoard />
+        </>
+      )}
+
+      {activeMainTab === 'prep' && (
+        <PrepDashboard />
+      )}
+
+      {activeMainTab === 'analytics' && (
+        <>
+          <AnalyticsDashboard />
+          <PortfolioSettings />
+        </>
+      )}
 
       {showForm && (
         <form
           onSubmit={handleSubmit}
           style={{
+            marginTop: '24px',
             marginBottom: '24px',
             padding: '16px',
             backgroundColor: '#fff',
@@ -94,9 +144,6 @@ export function ApplicationsPage() {
           </button>
         </form>
       )}
-
-      <StatsStrip />
-      <KanbanBoard />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { UserResponseDto } from '@nexahire/types';
+import type { UserResponseDto } from '@nexahire/types';
 
 interface AuthState {
   user: UserResponseDto | null;
