@@ -3,7 +3,7 @@ import { ApplicationsRepository } from './applications.repository';
 import { CreateApplicationDto } from './dto/create-application.dto';
 import { UpdateApplicationStatusDto } from './dto/update-application-status.dto';
 import { ApplicationStatus } from '@prisma/client';
-import { AppError, Result } from '@nexahire/types';
+import { AppError, Result } from '../../core/result';
 import { Application } from '@prisma/client';
 
 @Injectable()

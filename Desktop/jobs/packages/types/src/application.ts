@@ -11,13 +11,13 @@ export const ApplicationStatusEnum = z.enum([
 export type ApplicationStatus = z.infer<typeof ApplicationStatusEnum>;
 
 export const CreateApplicationSchema = z.object({
-  company: z.string().min(1, 'Company name is required'),
-  role: z.string().min(1, 'Role is required'),
+  company: z.string().trim().min(1, 'Company name is required'),
+  role: z.string().trim().min(1, 'Role is required'),
   location: z.string().optional(),
   url: z.string().url().optional().or(z.literal('')),
   source: z.string().optional(),
   notes: z.string().optional(),
-  status: ApplicationStatusEnum.optional(),
+  status: ApplicationStatusEnum.default('applied'),
 });
 
 export type CreateApplicationDto = z.infer<typeof CreateApplicationSchema>;

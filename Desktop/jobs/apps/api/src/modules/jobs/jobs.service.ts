@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JobsRepository } from './jobs.repository';
-import { AppError, Result } from '@nexahire/types';
+import { AppError, Result } from '../../core/result';
 import { Job, Company } from '@prisma/client';
 
 @Injectable()

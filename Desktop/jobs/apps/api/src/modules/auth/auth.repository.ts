@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../core/database/prisma.service';
-import { AppError, err, ok, Result } from '@nexahire/types';
+import { AppError, err, ok, Result } from '../../core/result';
 import { User } from '@prisma/client';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class AuthRepository {
       const user = await this.prisma.user.findUnique({ where: { email } });
       return ok(user);
     } catch (error) {
-      return err(new AppError('Internal', 'Database error finding user'));
+      return err(new AppError('Unexpected', 'Database error finding user'));
     }
   }
 
@@ -21,7 +21,7 @@ export class AuthRepository {
       const user = await this.prisma.user.findUnique({ where: { id } });
       return ok(user);
     } catch (error) {
-      return err(new AppError('Internal', 'Database error finding user by id'));
+      return err(new AppError('Unexpected', 'Database error finding user by id'));
     }
   }
 
@@ -35,7 +35,7 @@ export class AuthRepository {
       if (error.code === 'P2002') {
         return err(new AppError('Validation', 'Email already exists'));
       }
-      return err(new AppError('Internal', 'Database error creating user'));
+      return err(new AppError('Unexpected', 'Database error creating user'));
     }
   }
 }

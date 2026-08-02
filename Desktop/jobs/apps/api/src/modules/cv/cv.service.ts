@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CvRepository } from './cv.repository';
-import { AppError, CreateCvVersionDto, Result, UpdateCvVersionDto } from '@nexahire/types';
+import { CreateCvVersionDto, UpdateCvVersionDto } from '@nexahire/types';
+import { AppError, Result } from '../../core/result';
 import { CvVersion } from '@prisma/client';
 
 @Injectable()

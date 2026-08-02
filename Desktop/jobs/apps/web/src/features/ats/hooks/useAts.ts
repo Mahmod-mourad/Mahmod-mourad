@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { api } from '../../../lib/api';
-import { AtsRequestDto } from '@nexahire/types';
+import type { AtsRequestDto } from '@nexahire/types';
 
 export function useAtsJob(jobId: string | null) {
   return useQuery({

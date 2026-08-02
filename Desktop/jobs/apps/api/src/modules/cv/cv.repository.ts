@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../core/database/prisma.service';
-import { AppError, err, ok, Result } from '@nexahire/types';
+import { AppError, err, ok, Result } from '../../core/result';
 import { CvVersion } from '@prisma/client';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class CvRepository {
       });
       return ok(cv);
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to create CV version'));
+      return err(new AppError('Unexpected', 'Failed to create CV version'));
     }
   }
 
@@ -26,7 +26,7 @@ export class CvRepository {
       });
       return ok(cvs);
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to fetch CV versions'));
+      return err(new AppError('Unexpected', 'Failed to fetch CV versions'));
     }
   }
 
@@ -38,7 +38,7 @@ export class CvRepository {
       if (!cv) return err(new AppError('NotFound', 'CV version not found'));
       return ok(cv);
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to fetch CV version'));
+      return err(new AppError('Unexpected', 'Failed to fetch CV version'));
     }
   }
 
@@ -53,7 +53,7 @@ export class CvRepository {
       if (error.code === 'P2025') {
         return err(new AppError('NotFound', 'CV version not found'));
       }
-      return err(new AppError('Internal', 'Failed to update CV version'));
+      return err(new AppError('Unexpected', 'Failed to update CV version'));
     }
   }
 
@@ -67,7 +67,7 @@ export class CvRepository {
       if (error.code === 'P2025') {
         return err(new AppError('NotFound', 'CV version not found'));
       }
-      return err(new AppError('Internal', 'Failed to delete CV version'));
+      return err(new AppError('Unexpected', 'Failed to delete CV version'));
     }
   }
 }

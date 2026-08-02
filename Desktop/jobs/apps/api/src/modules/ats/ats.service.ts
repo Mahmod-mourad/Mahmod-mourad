@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
-import { AppError, err, ok, Result, AtsRequestDto, AtsJobStatusDto } from '@nexahire/types';
+import { AtsRequestDto, AtsJobStatusDto } from '@nexahire/types';
+import { AppError, err, ok, Result } from '../../core/result';
 
 @Injectable()
 export class AtsService {
@@ -10,20 +11,20 @@ export class AtsService {
   async submitScoreJob(userId: string, dto: AtsRequestDto): Promise<Result<{ jobId: string }, AppError>> {
     try {
       const job = await this.atsQueue.add('score', { userId, ...dto });
-      if (!job.id) return err(new AppError('Internal', 'Failed to enqueue job'));
+      if (!job.id) return err(new AppError('Unexpected', 'Failed to enqueue job'));
       return ok({ jobId: job.id });
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to submit ATS score job'));
+      return err(new AppError('Unexpected', 'Failed to submit ATS score job'));
     }
   }
 
   async submitTailorJob(userId: string, dto: AtsRequestDto): Promise<Result<{ jobId: string }, AppError>> {
     try {
       const job = await this.atsQueue.add('tailor', { userId, ...dto });
-      if (!job.id) return err(new AppError('Internal', 'Failed to enqueue job'));
+      if (!job.id) return err(new AppError('Unexpected', 'Failed to enqueue job'));
       return ok({ jobId: job.id });
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to submit CV tailor job'));
+      return err(new AppError('Unexpected', 'Failed to submit CV tailor job'));
     }
   }
 
@@ -54,7 +55,7 @@ export class AtsService {
 
       return ok(resultObj);
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to fetch job status'));
+      return err(new AppError('Unexpected', 'Failed to fetch job status'));
     }
   }
 }

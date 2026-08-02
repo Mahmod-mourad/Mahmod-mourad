@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../core/database/prisma.service';
-import { AppError, err, ok, Result } from '@nexahire/types';
+import { AppError, err, ok, Result } from '../../core/result';
 import { Application, ApplicationStatus, Prisma } from '@prisma/client';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class ApplicationsRepository {
       });
       return ok(app);
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to create application'));
+      return err(new AppError('Unexpected', 'Failed to create application'));
     }
   }
 
@@ -38,7 +38,7 @@ export class ApplicationsRepository {
 
       return ok({ data: apps, nextCursor });
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to fetch applications'));
+      return err(new AppError('Unexpected', 'Failed to fetch applications'));
     }
   }
 
@@ -53,7 +53,7 @@ export class ApplicationsRepository {
       if (error.code === 'P2025') {
         return err(new AppError('NotFound', 'Application not found or unauthorized'));
       }
-      return err(new AppError('Internal', 'Failed to update application status'));
+      return err(new AppError('Unexpected', 'Failed to update application status'));
     }
   }
 
@@ -89,7 +89,7 @@ export class ApplicationsRepository {
 
       return ok({ stageCounts, responseRate });
     } catch (error) {
-      return err(new AppError('Internal', 'Failed to fetch statistics'));
+      return err(new AppError('Unexpected', 'Failed to fetch statistics'));
     }
   }
 }

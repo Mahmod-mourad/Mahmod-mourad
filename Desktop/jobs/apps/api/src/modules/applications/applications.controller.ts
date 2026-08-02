@@ -5,6 +5,7 @@ import { UpdateApplicationStatusDto } from './dto/update-application-status.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { unwrapOrThrow } from '../../core/result/http-mapper';
+import { toApplicationResponse } from './dto/application-response.dto';
 
 @Controller('applications')
 @UseGuards(JwtAuthGuard)
@@ -14,7 +15,7 @@ export class ApplicationsController {
   @Post()
   async create(@CurrentUser() user: { id: string }, @Body() dto: CreateApplicationDto) {
     const result = await this.service.create(user.id, dto);
-    return unwrapOrThrow(result);
+    return toApplicationResponse(unwrapOrThrow(result));
   }
 
   @Get()
@@ -25,7 +26,8 @@ export class ApplicationsController {
   ) {
     const limit = limitStr ? parseInt(limitStr, 10) : 20;
     const result = await this.service.findPage(user.id, limit, cursor);
-    return unwrapOrThrow(result);
+    const page = unwrapOrThrow(result);
+    return { data: page.data.map(toApplicationResponse), nextCursor: page.nextCursor ?? null };
   }
 
   @Get('stats')
@@ -41,6 +43,6 @@ export class ApplicationsController {
     @Body() dto: UpdateApplicationStatusDto,
   ) {
     const result = await this.service.updateStatus(id, user.id, dto);
-    return unwrapOrThrow(result);
+    return toApplicationResponse(unwrapOrThrow(result));
   }
 }

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginDto, LoginSchema } from '@nexahire/types';
+import { LoginSchema } from '@nexahire/types';
+import type { LoginDto } from '@nexahire/types';
 import { useAuth } from './hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,7 +28,7 @@ export function AuthPage() {
         await register.mutateAsync(data);
         setIsLogin(true); // Switch to login after register
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Auth error', err);
     }
   };

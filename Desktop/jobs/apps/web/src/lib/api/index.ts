@@ -1,8 +1,37 @@
-import { LoginDto, UserResponseDto, CreateApplicationDto, UpdateApplicationStatusDto, PaginatedApplications, ApplicationResponseDto, CreateCvVersionDto, UpdateCvVersionDto, CvVersionResponseDto, AtsRequestDto, AtsJobResponseDto, AtsJobStatusDto, JobResponseDto } from '@nexahire/types';
+import { apiErrorBodySchema } from '@nexahire/types';
+import type {
+  LoginDto,
+  UserResponseDto,
+  CreateApplicationDto,
+  UpdateApplicationStatusDto,
+  PaginatedApplications,
+  ApplicationResponseDto,
+  CreateCvVersionDto,
+  UpdateCvVersionDto,
+  CvVersionResponseDto,
+  AtsRequestDto,
+  AtsJobResponseDto,
+  AtsJobStatusDto,
+  JobResponseDto,
+} from '@nexahire/types';
 
+/**
+ * The single error type thrown by the api client. It parses the shared error
+ * body the api emits — `{ error: { kind, message } }` (see `apiErrorBodySchema`)
+ * — so TanStack Query's `isError`/`error` carries a meaningful `kind` + message.
+ */
 export class ApiError extends Error {
-  constructor(public status: number, public data: any) {
-    super(data?.message || 'API Error');
+  readonly status: number;
+  readonly kind: string;
+  readonly body: unknown;
+
+  constructor(status: number, body: unknown) {
+    const parsed = apiErrorBodySchema.safeParse(body);
+    super(parsed.success ? parsed.data.error.message : 'API request failed');
+    this.name = 'ApiError';
+    this.status = status;
+    this.kind = parsed.success ? parsed.data.error.kind : 'Unexpected';
+    this.body = body;
   }
 }
 
@@ -15,21 +44,43 @@ async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise
       'Content-Type': 'application/json',
       ...options.headers,
     },
-    credentials: 'omit', // or 'include' if doing cross-origin cookies
+    // Always send the httpOnly JWT cookie the api sets, or every guarded call 401s.
+    credentials: 'include',
   });
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => null);
     throw new ApiError(res.status, errorData);
   }
-  
-  // return null for 204 No Content
-  if (res.status === 204) return null as any;
 
-  return res.json();
+  // 204 No Content carries no body.
+  if (res.status === 204) return null as T;
+
+  return res.json() as Promise<T>;
 }
 
 export const api = {
+  // Generic verbs for the feature hooks that hit endpoints without a dedicated
+  // typed method. They return `{ data }` (the shape the hooks read) so callers
+  // narrow the payload at the call site.
+  get: <T = unknown>(
+    endpoint: string,
+    opts?: { params?: Record<string, string | number | boolean> },
+  ) => {
+    const qs = opts?.params
+      ? '?' +
+        new URLSearchParams(
+          Object.entries(opts.params).map(([k, v]) => [k, String(v)]),
+        ).toString()
+      : '';
+    return fetchApi<T>(`${endpoint}${qs}`).then((data) => ({ data }));
+  },
+  post: <T = unknown>(endpoint: string, body?: unknown) =>
+    fetchApi<T>(endpoint, { method: 'POST', body: body === undefined ? undefined : JSON.stringify(body) }).then((data) => ({ data })),
+  patch: <T = unknown>(endpoint: string, body?: unknown) =>
+    fetchApi<T>(endpoint, { method: 'PATCH', body: body === undefined ? undefined : JSON.stringify(body) }).then((data) => ({ data })),
+  del: <T = unknown>(endpoint: string) =>
+    fetchApi<T>(endpoint, { method: 'DELETE' }).then((data) => ({ data })),
   auth: {
     login: (dto: LoginDto) => fetchApi<{ user: UserResponseDto }>('/auth/login', {
       method: 'POST',

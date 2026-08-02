@@ -14,6 +14,9 @@ export const serverEnvSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
 
   API_PORT: z.coerce.number().int().positive().default(3001),
+  // PaaS hosts (Railway, Render, Fly) assign the listen port via PORT. When set it
+  // wins over API_PORT so the container binds to the platform-assigned port.
+  PORT: z.coerce.number().int().positive().optional(),
   WEB_ORIGIN: z.string().url().default('http://localhost:5173'),
 
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
@@ -27,8 +30,14 @@ export const serverEnvSchema = z.object({
     .default('false')
     .transform((value) => value === 'true'),
 
-  // Server-side ONLY. Optional so the stack boots before AI is wired (Sprint 2).
+  // Server-side ONLY. Optional so the stack boots before AI is wired  // Anthropic
   ANTHROPIC_API_KEY: z.string().min(1).optional(),
+
+  // Push Notifications (VAPID)
+  VAPID_PUBLIC_KEY: z.string().optional(),
+  VAPID_PRIVATE_KEY: z.string().optional(),
+  VAPID_SUBJECT: z.string().url().default('mailto:admin@nexahire.local'),
+
   ANTHROPIC_MODEL: z.string().default('claude-opus-4-8'),
 });
 

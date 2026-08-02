@@ -1,21 +1,24 @@
-import { z } from 'zod';
+export * from './env.schema';
 
-const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-  PORT: z.string().default('3000'),
-  DATABASE_URL: z.string().url(),
-  REDIS_URL: z.string().url(),
-  JWT_SECRET: z.string().min(16),
-  ANTHROPIC_API_KEY: z.string().optional(),
-});
+import { serverEnvSchema, type ServerEnv } from './env.schema';
 
-export type Env = z.infer<typeof envSchema>;
-
-export function validateEnv(env: Record<string, string | undefined>): Env {
-  const parsed = envSchema.safeParse(env);
+/**
+ * The single entry point for server configuration. Validates the environment
+ * against `serverEnvSchema` (the ONE schema — see ./env.schema) and throws a
+ * readable error naming the offending variables, so the app fails fast at boot
+ * rather than at 2 a.m. on an undefined value. Nothing else in the api/worker
+ * reads `process.env` directly — they read validated config through this (via
+ * Nest's ConfigService).
+ */
+export function loadServerEnv(
+  env: Record<string, string | undefined> = process.env,
+): ServerEnv {
+  const parsed = serverEnvSchema.safeParse(env);
   if (!parsed.success) {
-    console.error('❌ Invalid environment variables:', parsed.error.flatten().fieldErrors);
-    throw new Error('Invalid environment variables');
+    const details = parsed.error.issues
+      .map((issue) => `${issue.path.join('.') || '(root)'}: ${issue.message}`)
+      .join('; ');
+    throw new Error(`Invalid server environment — ${details}`);
   }
   return parsed.data;
 }

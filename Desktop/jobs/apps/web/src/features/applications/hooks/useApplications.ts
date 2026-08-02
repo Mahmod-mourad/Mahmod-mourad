@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import type { InfiniteData } from '@tanstack/react-query';
 import { api } from '../../../lib/api';
-import { ApplicationResponseDto, CreateApplicationDto, UpdateApplicationStatusDto, ApplicationStatus } from '@nexahire/types';
+import type { ApplicationResponseDto, CreateApplicationDto, UpdateApplicationStatusDto, PaginatedApplications } from '@nexahire/types';
 
 export function useApplications() {
   const queryClient = useQueryClient();
@@ -35,11 +36,11 @@ export function useApplications() {
       const previousStats = queryClient.getQueryData(['applications', 'stats']);
 
       // Optimistically update applications list
-      queryClient.setQueryData(['applications'], (old: any) => {
+      queryClient.setQueryData<InfiniteData<PaginatedApplications>>(['applications'], (old) => {
         if (!old) return old;
         return {
           ...old,
-          pages: old.pages.map((page: any) => ({
+          pages: old.pages.map((page) => ({
             ...page,
             data: page.data.map((app: ApplicationResponseDto) =>
               app.id === id ? { ...app, status: dto.status } : app
@@ -50,7 +51,7 @@ export function useApplications() {
 
       return { previousApps, previousStats };
     },
-    onError: (err, variables, context) => {
+    onError: (_err, _variables, context) => {
       if (context?.previousApps) {
         queryClient.setQueryData(['applications'], context.previousApps);
       }

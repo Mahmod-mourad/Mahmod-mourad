@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AuthRepository } from './auth.repository';
-import { AppError, err, ok, Result } from '@nexahire/types';
+import { AppError, err, ok, Result } from '../../core/result';
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';

@@ -1,4 +1,4 @@
-import { ApplicationResponseDto } from '@nexahire/types';
+import type { ApplicationResponseDto } from '@nexahire/types';
 
 interface Props {
   application: ApplicationResponseDto;

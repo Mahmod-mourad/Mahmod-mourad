@@ -19,6 +19,13 @@ export function useAuth() {
       }
     },
     retry: false,
+    // Resolve the session once and cache it. Without this the query refetched on
+    // every observer mount/re-render and hammered /auth/me in a tight loop while
+    // the app sat on "Loading". Login/logout update this query's data directly.
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 
   const loginMutation = useMutation({
@@ -31,7 +38,7 @@ export function useAuth() {
 
   const registerMutation = useMutation({
     mutationFn: api.auth.register,
-    onSuccess: (data) => {
+    onSuccess: () => {
       // After register we typically require login, but assuming it logs in:
       // setUser(data.user);
     },
