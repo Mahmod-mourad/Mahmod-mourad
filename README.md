@@ -1,7 +1,7 @@
 <h1 align="center">Mahmoud Mourad</h1>
 
 <h3 align="center">
-Full Stack & Backend Engineer · React · Next.js · Node.js · NestJS · Rust
+Full Stack & Backend Engineer · React · Next.js · Node.js · NestJS 
 </h3>
 
 <p align="center">
@@ -22,7 +22,7 @@ Full Stack & Backend Engineer · React · Next.js · Node.js · NestJS · Rust
 
 Full Stack & Backend Engineer with experience building scalable web applications, SaaS systems, and distributed backend services.
 
-Focused on building production-ready systems using modern JavaScript/TypeScript ecosystems with growing expertise in Rust systems engineering and high-performance backend architecture.
+Focused on building production-ready systems using modern JavaScript/TypeScript ecosystems and high-performance backend architecture.
 
 ---
 
@@ -31,7 +31,6 @@ Focused on building production-ready systems using modern JavaScript/TypeScript 
 ## Frontend
 - React.js
 - Next.js
-- Angular
 - TypeScript
 - Tailwind CSS
 
@@ -59,12 +58,7 @@ Focused on building production-ready systems using modern JavaScript/TypeScript 
 - CI/CD
 - GitHub Actions
 
-## Rust & Systems
-- Rust
-- Tokio
-- Axum
-- gRPC
-- Kafka
+
 - Distributed Systems
 
 ---
@@ -80,16 +74,11 @@ Enterprise ERP system built with React, NestJS, MongoDB, and Redis including inv
 ## Real Estate Platform
 Scalable frontend architecture using React, Angular, TypeScript, and Tailwind CSS.
 
-## Rust Distributed Systems
-High-performance backend systems using Rust, Tokio, Axum, Kafka, and gRPC.
-
----
 
 # GitHub Goals
 
 - Building scalable backend systems
 - Learning advanced distributed systems
-- Exploring Rust performance engineering
 - Open to remote opportunities
 
 ---
