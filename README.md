@@ -24,7 +24,7 @@ Full Stack Engineer building web and mobile products end to end in TypeScript �
 
 I've delivered features across booking, healthcare, real estate, and logistics products: authentication and authorization, REST APIs, reservation and payment flows, admin dashboards, and the schemas underneath them. I care about code that is tested, readable, and reproducible from a clean clone.
 
-Currently a Full Stack Engineer at Vibe Fusion UG (remote, Germany). Open to remote full stack roles.
+Currently a Full Stack Engineer at Vibe Fusion UG (remote, Germany), building [Linao](https://apps.apple.com/eg/app/linao/id6748551904) — a cross-platform event-booking product live on the [App Store](https://apps.apple.com/eg/app/linao/id6748551904) and [Google Play](https://play.google.com/store/apps/details?id=com.linao). Open to remote full stack roles.
 
 ---
 
@@ -64,13 +64,13 @@ Currently a Full Stack Engineer at Vibe Fusion UG (remote, Germany). Open to rem
 # Featured Projects
 
 ### [Project Management System](https://github.com/Mahmod-mourad/Project-management-system)
-Multi-tenant project management app. Next.js and TypeScript frontend with a NestJS backend organized into auth, tenant, user, project, task, and notification modules. Supabase/PostgreSQL, Docker Compose, GitHub Actions, and Jest test suites.
+Multi-tenant project management app. Next.js and TypeScript frontend with a NestJS backend organized into auth, tenant, user, project, task, and notification modules. Supabase/PostgreSQL, Docker Compose, GitHub Actions, and 151 Jest tests. Found and closed three chained tenant-authorization defects during a security pass.
 
 ### [NexMart](https://github.com/Mahmod-mourad/e-commerce-platform-NexMart)
-E-commerce web app in Next.js and TypeScript. API routes, Prisma/PostgreSQL migrations, JWT and cookie authentication, authorization checks, and payment integration.
+E-commerce web app in Next.js and TypeScript. API routes, Prisma/PostgreSQL migrations, JWT and cookie authentication, authorization checks, and Stripe payments settled by a signed webhook. 54 Jest tests. Stock is reserved inside the order transaction with a conditional decrement, so two customers racing for the last unit cannot both succeed.
 
 ### [Car Rental System](https://github.com/Mahmod-mourad/Car-Rental-System)
-Next.js frontend with a NestJS API. PostgreSQL/TypeORM entities and migrations, role-based authentication, booking modules, and Swagger API documentation.
+Next.js frontend with a NestJS API. PostgreSQL/TypeORM entities and migrations, role-based authentication, booking modules, and Swagger API documentation. 41 Jest tests.
 
 ### [Korax — Stadium Booking](https://github.com/Mahmod-mourad/korax-stadium-booking)
 React Native (Expo) booking app. Stadium management for owners, scheduling for players, match history, ratings, and OTP authentication.
