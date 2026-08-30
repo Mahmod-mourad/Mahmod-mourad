@@ -14,6 +14,9 @@ Full Stack Engineer · React · Next.js · Node.js · NestJS · TypeScript
   </a>
 
   <img src="https://img.shields.io/badge/Open%20to-Remote%20Opportunities-black?style=for-the-badge" />
+  <a href="https://mahmod-mourad.github.io/demo-hub/">
+    <img src="https://img.shields.io/badge/Demo%20Hub-Screenshots%20%26%20Demos-8B5CF6?style=for-the-badge" />
+  </a>
 </p>
 
 ---
@@ -66,7 +69,7 @@ Currently a Full Stack Engineer at Vibe Fusion UG (remote, Germany), building [L
 ### [Project Management System](https://github.com/Mahmod-mourad/Project-management-system)
 Multi-tenant project management app. Next.js and TypeScript frontend with a NestJS backend organized into auth, tenant, user, project, task, and notification modules. Supabase/PostgreSQL, Docker Compose, GitHub Actions, and 151 Jest tests. Found and closed three chained tenant-authorization defects during a security pass.
 
-### [NexMart](https://github.com/Mahmod-mourad/e-commerce-platform-NexMart)
+### [NexMart](https://github.com/Mahmod-mourad/e-commerce-platform-NexMart) — [Live Demo](https://nexmart-iota.vercel.app)
 E-commerce web app in Next.js and TypeScript. API routes, Prisma/PostgreSQL migrations, JWT and cookie authentication, authorization checks, and Stripe payments settled by a signed webhook. 54 Jest tests. Stock is reserved inside the order transaction with a conditional decrement, so two customers racing for the last unit cannot both succeed.
 
 ### [Car Rental System](https://github.com/Mahmod-mourad/Car-Rental-System)
@@ -80,11 +83,21 @@ Offline clinic management application built with Electron, React, and TypeScript
 
 ---
 
+# GitHub Stats
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Mahmod-mourad&show_icons=true&hide_border=true&count_private=true" alt="GitHub stats" height="165" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mahmod-mourad&layout=compact&hide_border=true&langs_count=8" alt="Top languages" height="165" />
+</p>
+
+---
+
 # Connect
 
 - LinkedIn: https://linkedin.com/in/mahmoud-mourad-946a59263
 - Email: eng.mahmoudmurad@gmail.com
 - WhatsApp: https://wa.me/201030796415
+- Demo Hub: https://mahmod-mourad.github.io/demo-hub/
 
 ---
 
