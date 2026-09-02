@@ -42,7 +42,6 @@ Currently a Full Stack Engineer at Vibe Fusion UG (remote, Germany), building [L
 ## Backend
 - Node.js
 - NestJS
-- Express.js
 - REST APIs
 
 ## Mobile
@@ -52,7 +51,6 @@ Currently a Full Stack Engineer at Vibe Fusion UG (remote, Germany), building [L
 - PostgreSQL
 - MongoDB
 - Supabase
-- Redis
 - Prisma / TypeORM
 
 ## Testing & Delivery
