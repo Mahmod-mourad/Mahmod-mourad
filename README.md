@@ -75,9 +75,6 @@ E-commerce web app in Next.js and TypeScript. API routes, Prisma/PostgreSQL migr
 ### [Car Rental System](https://github.com/Mahmod-mourad/Car-Rental-System)
 Next.js frontend with a NestJS API. PostgreSQL/TypeORM entities and migrations, role-based authentication, booking modules, and Swagger API documentation. 41 Jest tests.
 
-### [Korax — Stadium Booking](https://github.com/Mahmod-mourad/korax-stadium-booking)
-React Native (Expo) booking app. Stadium management for owners, scheduling for players, match history, ratings, and OTP authentication.
-
 ### [Clinic Management Desktop App](https://github.com/Mahmod-mourad/Clinic-Management-Desktop-App)
 Offline clinic management application built with Electron, React, and TypeScript.
 
