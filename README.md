@@ -5,99 +5,46 @@ Full Stack Engineer · React · Next.js · Node.js · NestJS · TypeScript
 </h3>
 
 <p align="center">
+  Remote from Cairo, Egypt (UTC+2) · Full overlap with GST and CET
+</p>
+
+<p align="center">
   <a href="https://linkedin.com/in/mahmoud-mourad-946a59263">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
   </a>
-
   <a href="mailto:eng.mahmoudmurad@gmail.com">
     <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
   </a>
-
-  <img src="https://img.shields.io/badge/Open%20to-Remote%20Opportunities-black?style=for-the-badge" />
-  <a href="https://mahmod-mourad.github.io/demo-hub/">
-    <img src="https://img.shields.io/badge/Demo%20Hub-Screenshots%20%26%20Demos-8B5CF6?style=for-the-badge" />
-  </a>
+  <img src="https://img.shields.io/badge/Open%20to-Remote%20Full%20Stack%20Roles-black?style=for-the-badge" />
 </p>
 
 ---
 
-# About Me
+I build web and mobile products end to end in TypeScript, from the database schema to the screen. I've shipped booking, real estate, and logistics features: authentication and authorization, REST APIs, reservation and payment flows, admin dashboards, and the schemas underneath them.
 
-Full Stack Engineer building web and mobile products end to end in TypeScript — React and Next.js on the front, Node.js and NestJS on the back, with PostgreSQL and MongoDB behind them.
+## Now
 
-I've delivered features across booking, healthcare, real estate, and logistics products: authentication and authorization, REST APIs, reservation and payment flows, admin dashboards, and the schemas underneath them. I care about code that is tested, readable, and reproducible from a clean clone.
+**Full Stack Engineer at Vibe Fusion UG** (remote, Germany). I work on [Linao](https://apps.apple.com/eg/app/linao/id6748551904), an event-booking app live on the [App Store](https://apps.apple.com/eg/app/linao/id6748551904) and [Google Play](https://play.google.com/store/apps/details?id=com.linao).
 
-Currently a Full Stack Engineer at Vibe Fusion UG (remote, Germany), building [Linao](https://apps.apple.com/eg/app/linao/id6748551904) — a cross-platform event-booking product live on the [App Store](https://apps.apple.com/eg/app/linao/id6748551904) and [Google Play](https://play.google.com/store/apps/details?id=com.linao). Open to remote full stack roles.
+## Projects
 
----
+### [Project Management System](https://github.com/Mahmod-mourad/Project-management-system) · [Live Demo](https://pms-web-lilac.vercel.app)
+Multi-tenant project management app. Next.js frontend, NestJS backend with auth, tenant, user, project, task, and notification modules. Supabase/PostgreSQL, Docker Compose, GitHub Actions, 151 Jest tests. Found and closed three chained tenant-authorization defects during a security pass.
 
-# Tech Stack
-
-## Frontend
-- React
-- Next.js
-- TypeScript
-- Tailwind CSS
-
-## Backend
-- Node.js
-- NestJS
-- Express.js
-- REST APIs
-
-## Mobile
-- React Native (iOS & Android)
-
-## Data
-- PostgreSQL
-- MongoDB
-- Supabase
-- Redis
-- Prisma / TypeORM
-
-## Testing & Delivery
-- Jest
-- React Testing Library
-- Docker & Docker Compose
-- GitHub Actions
-- Git
-
----
-
-# Featured Projects
-
-### [Project Management System](https://github.com/Mahmod-mourad/Project-management-system)
-Multi-tenant project management app. Next.js and TypeScript frontend with a NestJS backend organized into auth, tenant, user, project, task, and notification modules. Supabase/PostgreSQL, Docker Compose, GitHub Actions, and 151 Jest tests. Found and closed three chained tenant-authorization defects during a security pass.
-
-### [NexMart](https://github.com/Mahmod-mourad/e-commerce-platform-NexMart) — [Live Demo](https://nexmart-iota.vercel.app)
-E-commerce web app in Next.js and TypeScript. API routes, Prisma/PostgreSQL migrations, JWT and cookie authentication, authorization checks, and Stripe payments settled by a signed webhook. 54 Jest tests. Stock is reserved inside the order transaction with a conditional decrement, so two customers racing for the last unit cannot both succeed.
+### [NexMart](https://github.com/Mahmod-mourad/e-commerce-platform-NexMart) · [Live Demo](https://nexmart-iota.vercel.app)
+E-commerce app in Next.js and TypeScript. Prisma/PostgreSQL, JWT and cookie auth, and Stripe payments settled by a signed webhook. 54 Jest tests. Stock is reserved inside the order transaction, so two customers racing for the last unit can't both win.
 
 ### [Car Rental System](https://github.com/Mahmod-mourad/Car-Rental-System)
-Next.js frontend with a NestJS API. PostgreSQL/TypeORM entities and migrations, role-based authentication, booking modules, and Swagger API documentation. 41 Jest tests.
+Next.js frontend with a NestJS API. PostgreSQL/TypeORM, role-based auth, server-side pricing, double-booking protection, and Swagger API docs. 41 Jest tests.
 
-### [Clinic Management Desktop App](https://github.com/Mahmod-mourad/Clinic-Management-Desktop-App)
-Offline clinic management application built with Electron, React, and TypeScript.
+## Stack
 
----
-
-# GitHub Stats
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Mahmod-mourad&show_icons=true&hide_border=true&count_private=true" alt="GitHub stats" height="165" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mahmod-mourad&layout=compact&hide_border=true&langs_count=8" alt="Top languages" height="165" />
-</p>
-
----
-
-# Connect
-
-- LinkedIn: https://linkedin.com/in/mahmoud-mourad-946a59263
-- Email: eng.mahmoudmurad@gmail.com
-- WhatsApp: https://wa.me/201030796415
-- Demo Hub: https://mahmod-mourad.github.io/demo-hub/
+**Frontend:** React, Next.js, TypeScript, Tailwind CSS · **Backend:** Node.js, NestJS, Express, REST APIs · **Mobile:** React Native · **Data:** PostgreSQL, MongoDB, Supabase, Redis, Prisma, TypeORM · **Delivery:** Jest, React Testing Library, Docker, GitHub Actions
 
 ---
 
 <p align="center">
-  Cairo, Egypt · Open to Remote Work
+  <a href="https://linkedin.com/in/mahmoud-mourad-946a59263">LinkedIn</a> ·
+  <a href="mailto:eng.mahmoudmurad@gmail.com">Email</a> ·
+  <a href="https://wa.me/201030796415">WhatsApp</a>
 </p>
